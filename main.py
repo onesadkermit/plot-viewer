@@ -4,22 +4,52 @@ import math as mth
 #import widget_funcs as wf
 
 def draw_matplot():
-    plt.ylabel('some numbers')
-    plt.show()
-
+    if current_function == "linear":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "power":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "exponential":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "logarithm":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "sin":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "cos":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "tg":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "ctg":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "asin":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "acos":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "atg":
+        plt.ylabel('some numbers')
+        plt.show()
+    elif current_function == "actg":
+        plt.ylabel('some numbers')
+        plt.show()
+    
 def test_redraw():
-    func_range_text_box.grid()
-    func_domain_text_box.grid()
-    func_domain_Label.grid()
-    func_range_Label.grid()
-    number_dots_Label.grid()
-    number_of_dots_text_box.grid()
     display_func_range_low_text_box.grid()
     display_func_range_high_text_box.grid()
     display_func_range_Label.grid()
-
+    
 #linear
 def enable_func1_params():
+    global current_function
+    current_function = "linear"
     test_redraw()
     a_const.grid()
     b_const.grid()
@@ -44,6 +74,8 @@ def enable_func1_params():
     plt.plot(x_list, y_list)
 #x to the power of a
 def enable_func2_params():
+    global current_function
+    current_function = "power"
     test_redraw()
     a_const.grid()
     b_const.grid_remove()
@@ -70,42 +102,62 @@ def enable_func2_params():
 
 #a to the power of x
 def enable_func3_params():
+    global current_function
+    current_function = "exponential"
     draw_matplot()
 
 #logarithm
 def enable_func4_params():
+    global current_function
+    current_function = "logarithm"
     draw_matplot()
 
 #sin
 def enable_func5_params():
+    global current_function
+    current_function = "sin"
     draw_matplot()
 
 #cos
 def enable_func6_params():
+    global current_function
+    current_function = "cos"
     draw_matplot()
 
 #tg
 def enable_func7_params():
+    global current_function
+    current_function = "tg"
     draw_matplot()
 
 #ctg
 def enable_func8_params():
+    global current_function
+    current_function = "ctg"
     draw_matplot()
 
 #asin
 def enable_func9_params():
+    global current_function
+    current_function = "asin"
     draw_matplot()
 
 #acos
 def enable_func10_params():
+    global current_function
+    current_function = "acos"
     draw_matplot()
 
 #atg
 def enable_func11_params():
+    global current_function
+    current_function = "atg"
     draw_matplot()
 
 #actg
 def enable_func12_params():
+    global current_function
+    current_function = "actg"
     draw_matplot()
 
 main_window = tk.Tk()
@@ -182,7 +234,11 @@ DrawPlotButton = tk.Button(main_window, text="draw plot",
                     height=1, width=10,
                  command=lambda: draw_matplot())
 DrawPlotButton.grid(row=1, column=1)
-DrawPlotButton.grid_remove()
+
+ClearPlotButton = tk.Button(main_window, text="clear plot", 
+                    height=1, width=10,
+                 command=lambda: plt.clf())
+ClearPlotButton.grid(row=1, column=0)
 
 message_Label = tk.Label(main_window, text="to recalculate new func and add it to  plot, press func button again")
 message_Label.grid(row=2, column=1)
@@ -194,51 +250,40 @@ func_options_frame.grid(row=0, column=1, sticky=tk.E + tk.W + tk.N + tk.S)
 #text inputs function options
 func_domain_Label = tk.Label(func_options_frame, text="Function domain")
 func_domain_Label.grid(row=0, column=3)
-func_domain_Label.grid_remove()
 
-func_domain_text_box = tk.Entry(func_options_frame)
-func_domain_text_box.grid(row=1, column=3)
+func_domain_text_label = tk.Label(func_options_frame)
+func_domain_text_label.grid(row=1, column=3)
 insert_str = "+"+chr(8734)+":"+"-"+chr(8734)
-func_domain_text_box.insert(0,insert_str)
-func_domain_text_box.grid_remove()
+func_domain_text_label.config(text = insert_str)
 
 func_range_Label = tk.Label(func_options_frame, text="Function range")
 func_range_Label.grid(row=0, column=5)
-func_range_Label.grid_remove()
 
-func_range_text_box = tk.Entry(func_options_frame)
-func_range_text_box.grid(row=1, column=5)
+func_range_text_label = tk.Label(func_options_frame)
+func_range_text_label.grid(row=1, column=5)
 insert_str = "+"+chr(8734)+":"+"-"+chr(8734)
-func_range_text_box.insert(0,insert_str)
-func_range_text_box.grid_remove()
+func_range_text_label.config(text = insert_str)
 
 display_func_range_Label = tk.Label(func_options_frame, text="Display func. rng.")
 display_func_range_Label.grid(row=2, column=5)
-display_func_range_Label.grid_remove()
 
 display_func_range_low_text_box = tk.Entry(func_options_frame)
 display_func_range_low_text_box.grid(row=3, column=5)
 insert_str = "-10"
 display_func_range_low_text_box.insert(0,insert_str)
-display_func_range_low_text_box.grid_remove()
 
 display_func_range_high_text_box = tk.Entry(func_options_frame)
 display_func_range_high_text_box.grid(row=3, column=6)
 insert_str = "+10"
 display_func_range_high_text_box.insert(0,insert_str)
-display_func_range_high_text_box.grid_remove()
 
 number_dots_Label = tk.Label(func_options_frame, text="Number of dots")
 number_dots_Label.grid(row=2, column=3)
-number_dots_Label.grid_remove()
 
 number_of_dots_text_box = tk.Entry(func_options_frame)
 number_of_dots_text_box.grid(row=3, column=3)
 insert_str = "100"
 number_of_dots_text_box.insert(0,insert_str)
-number_of_dots_text_box.grid_remove()
-
-
 
 a_const_Label = tk.Label(func_options_frame, text="Const a")
 a_const_Label.grid(row=4, column=3)
@@ -260,5 +305,6 @@ insert_str = "1"
 b_const.insert(0,insert_str)
 b_const.grid_remove()
 
+current_function = "linear"
 main_window.geometry("450x450")
 main_window.mainloop()
