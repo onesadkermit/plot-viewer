@@ -4,43 +4,103 @@ import math as mth
 #import widget_funcs as wf
 
 def draw_matplot():
+    dots =int(number_of_dots_text_box.get())
+    #at least one point 
+    if dots<1:
+        dots = 1
+    low = float(display_func_range_low_text_box.get())
+    high = float(display_func_range_high_text_box.get())
+    #increment interval
+    interval = (high - low)/(dots+1)
+    x_list = []
+    y_list = []
     if current_function == "linear":
-        plt.ylabel('some numbers')
-        plt.show()
+        a = float(a_const.get())
+        b = float(b_const.get())
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(a*(low+n*interval)+b)
+        plt.ylabel('linear function')
+
     elif current_function == "power":
-        plt.ylabel('some numbers')
-        plt.show()
+        a = float(a_const.get())
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.pow(low+n*interval,a))
+        plt.ylabel('power of x')
+
     elif current_function == "exponential":
-        plt.ylabel('some numbers')
-        plt.show()
+        #add domain restriction
+        a = float(a_const.get())
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.pow(a,low+n*interval))
+        plt.ylabel('exponential function')
+        
     elif current_function == "logarithm":
-        plt.ylabel('some numbers')
-        plt.show()
+        #add domain restriction
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.log(low+n*interval))
+        plt.ylabel('logarithm')
+        
     elif current_function == "sin":
-        plt.ylabel('some numbers')
-        plt.show()
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.sin(low+n*interval))
+        plt.ylabel('sin')
+        
     elif current_function == "cos":
-        plt.ylabel('some numbers')
-        plt.show()
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.cos(low+n*interval))
+        plt.ylabel('cos')
+#
+#
+#TO DO add asymthotic lines
+#
+#
     elif current_function == "tg":
-        plt.ylabel('some numbers')
-        plt.show()
-    elif current_function == "ctg":
-        plt.ylabel('some numbers')
-        plt.show()
-    elif current_function == "asin":
-        plt.ylabel('some numbers')
-        plt.show()
-    elif current_function == "acos":
-        plt.ylabel('some numbers')
-        plt.show()
-    elif current_function == "atg":
-        plt.ylabel('some numbers')
-        plt.show()
-    elif current_function == "actg":
-        plt.ylabel('some numbers')
-        plt.show()
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.tan(low+n*interval))
+        plt.ylabel('tan')
     
+    elif current_function == "ctg":
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(1/mth.tan(low+n*interval))
+        plt.ylabel('ctg')
+        
+    elif current_function == "asin":
+        #add restriction domain
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.asin(low+n*interval))
+        plt.ylabel('asin')
+        
+    elif current_function == "acos":
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.acos(low+n*interval))
+        plt.ylabel('acos')
+        
+    elif current_function == "atg":
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.atan(low+n*interval))
+        plt.ylabel('atg')
+        
+    elif current_function == "actg":
+        for n in range(dots+1):
+            x_list.append(low+n*interval)
+            y_list.append(mth.pi/2 - mth.atan(low+n*interval))
+        plt.ylabel('actg')
+        
+    
+    plt.plot(x_list, y_list)
+    plt.show()
+
 def test_redraw():
     display_func_range_low_text_box.grid()
     display_func_range_high_text_box.grid()
@@ -56,22 +116,7 @@ def enable_func1_params():
     a_const_Label.grid()
     b_const_Label.grid()
     DrawPlotButton.grid()
-    dots =int(number_of_dots_text_box.get())
-    if dots<1:
-        dots = 1
-    low = int(display_func_range_low_text_box.get())
-    high = int(display_func_range_high_text_box.get())
-    print(high, low)
-    quant = (high - low)/(dots+1)
-    x_list = []
-    y_list = []
-    x_list.append(low)
-    y_list.append(low*int(a_const.get())+int(b_const.get()))
-    for n in range(dots+1):
-        x_list.append(low+n*quant)
-        y_list.append((low+n*quant)*int(a_const.get())+int(b_const.get()))
-        print(x_list[len(x_list)-1], y_list[len(y_list)-1])
-    plt.plot(x_list, y_list)
+    
 #x to the power of a
 def enable_func2_params():
     global current_function
@@ -82,83 +127,68 @@ def enable_func2_params():
     a_const_Label.grid()
     b_const_Label.grid_remove()
     DrawPlotButton.grid()
-    dots =int(number_of_dots_text_box.get())
-    if dots<1:
-        dots = 1
-    low = int(display_func_range_low_text_box.get())
-    high = int(display_func_range_high_text_box.get())
-    print(high, low)
-    quant = (high - low)/(dots+1)
-    a = float(a_const.get())
-    x_list = []
-    y_list = []
-    x_list.append(low)
-    y_list.append(mth.pow(low,a))
-    for n in range(dots+1):
-        x_list.append(low+n*quant)
-        y_list.append(mth.pow(low+n*quant,a))
-        print(x_list[len(x_list)-1], y_list[len(y_list)-1])
-    plt.plot(x_list, y_list)
 
 #a to the power of x
 def enable_func3_params():
     global current_function
     current_function = "exponential"
-    draw_matplot()
+    a_const.grid()
+    b_const.grid_remove()
+    a_const_Label.grid()
+    b_const_Label.grid_remove()
 
 #logarithm
 def enable_func4_params():
     global current_function
     current_function = "logarithm"
-    draw_matplot()
+    
 
 #sin
 def enable_func5_params():
     global current_function
     current_function = "sin"
-    draw_matplot()
+    
 
 #cos
 def enable_func6_params():
     global current_function
     current_function = "cos"
-    draw_matplot()
+    
 
 #tg
 def enable_func7_params():
     global current_function
     current_function = "tg"
-    draw_matplot()
+    
 
 #ctg
 def enable_func8_params():
     global current_function
     current_function = "ctg"
-    draw_matplot()
+    
 
 #asin
 def enable_func9_params():
     global current_function
     current_function = "asin"
-    draw_matplot()
+    
 
 #acos
 def enable_func10_params():
     global current_function
     current_function = "acos"
-    draw_matplot()
+    
 
 #atg
 def enable_func11_params():
     global current_function
     current_function = "atg"
-    draw_matplot()
+    
 
 #actg
 def enable_func12_params():
     global current_function
     current_function = "actg"
-    draw_matplot()
 
 main_window = tk.Tk()
 
@@ -175,12 +205,12 @@ FuncButton1 = tk.Button(func_button_frame, text="y=ax+b",
                  command=lambda: enable_func1_params())
 FuncButton1.grid(row=1, column=0)
 
-FuncButton2 = tk.Button(func_button_frame, text="y=a^x",
+FuncButton2 = tk.Button(func_button_frame, text="y=x^a",
                     height=1, width=10,
                  command=lambda: enable_func2_params())
 FuncButton2.grid(row=2, column=0)
 
-FuncButton3 = tk.Button(func_button_frame, text="y=x^a", 
+FuncButton3 = tk.Button(func_button_frame, text="y=a^x", 
                     height=1, width=10,
                  command=lambda: enable_func3_params())
 FuncButton3.grid(row=3, column=0)
